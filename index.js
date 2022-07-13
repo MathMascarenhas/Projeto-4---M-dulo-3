@@ -4,6 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import connectToDatabase from './src/database/db.js';
 import router from './src/characters/characters.route.js'
+import {} from './src/characters/characters.middleware.js'
 
 connectToDatabase();
 
