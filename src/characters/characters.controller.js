@@ -5,5 +5,5 @@ export const findAll = async (req, res) => {
     if(allCharacters.length === 0){
         return res.status(200).send({ message: 'Nenhum personagem cadastrado!'})
     }
-    res.status(200).send({ allCharacters })
+    res.status(200).send(allCharacters)
 }
