@@ -7,6 +7,7 @@ import {
   updateCharacter,
   deleteCharacter,
 } from './characters.controller.js';
+import { validId} from './src/characters/characters.middleware.js'
 
 router.get('/characters', findAll);
 router.get('/characters/find/:id', findById);
