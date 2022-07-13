@@ -11,3 +11,5 @@ export const characterUpdate = async (idParam, updateBody) => {
         returnOriginal: false
     });
 };
+
+export const removeCharacter = async (idParam) => await Characters.findByIdAndDelete(idParam);

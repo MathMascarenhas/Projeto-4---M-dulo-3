@@ -1,5 +1,5 @@
 import Characters from './Characters.model.js'
-import { allCharacters, characterById, createNewCharacter, characterUpdate} from './characters.service.js'
+import { allCharacters, characterById, createNewCharacter, characterUpdate, removeCharacter} from './characters.service.js'
 
 export const findAll = async (req, res) => {
     const characters = await allCharacters()
@@ -26,4 +26,10 @@ export const updateCharacter = async (req, res) => {
     const updateBody = req.body;
     const updatedCharacter = await characterUpdate(idParam, updateBody);
     res.send(updatedCharacter);
+}
+
+export const deleteCharacter = async (req, res) => {
+    const idParam = req.params.id;
+    await removeCharacter(idParam)
+    res.send({ message : 'Personagem deletado!'});
 }
