@@ -1,6 +1,12 @@
 import express from 'express';
 const router = express.Router();
-import { findAll, findById, createCharacter, updateCharacter, deleteCharacter } from './characters.controller.js'
+import {
+  findAll,
+  findById,
+  createCharacter,
+  updateCharacter,
+  deleteCharacter,
+} from './characters.controller.js';
 
 router.get('/characters', findAll);
 router.get('/characters/find/:id', findById);
