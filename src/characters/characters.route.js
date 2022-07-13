@@ -7,11 +7,11 @@ import {
   updateCharacter,
   deleteCharacter,
 } from './characters.controller.js';
-import { validId } from './characters.middleware.js'
+import { validId, validCreate } from './characters.middleware.js'
 
 router.get('/characters', findAll);
 router.get('/characters/find/:id', validId, findById);
-router.post('/characters/create', createCharacter);
+router.post('/characters/create', validCreate, createCharacter);
 router.put('/characters/update/:id', validId, updateCharacter);
 router.delete('/characters/delete/:id', validId, deleteCharacter);
 

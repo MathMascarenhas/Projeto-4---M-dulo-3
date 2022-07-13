@@ -11,3 +11,14 @@ export const validId = async (req, res, next) => {
     }
     next();
 }
+
+export const validCreate = async (req, res, next) => {
+    const { name, imageUrl } = req.body;
+    if(!name || !imageUrl){
+        return res.status(400).send({message: 'Por favor preencha todos os campos!'})
+    }
+    if(await Characters.exists({name: name})){
+        return res.status(400).send({message: 'Personagem já está cadastrado'})
+    }
+    next();
+}
