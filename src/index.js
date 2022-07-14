@@ -2,8 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import cors from 'cors';
-import connectToDatabase from './src/database/db.js';
-import router from './src/characters/characters.route.js'
+import connectToDatabase from './database/db.js';
+import router from './characters/characters.route.js'
 
 connectToDatabase();
 
