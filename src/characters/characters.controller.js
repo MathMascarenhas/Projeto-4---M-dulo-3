@@ -9,11 +9,20 @@ import {
 } from './characters.service.js';
 
 export const findAll = async (req, res) => {
-  const characters = await allCharacters();
+  let {limit, offset} = req.query;
+  limit = Number(limit);
+  offset = Number(offset);
+  if(!limit){
+    limit = 8;
+  }
+  if(!offset){
+    offset = 0;
+  }
+  const characters = await allCharacters(offset, limit);
   if (characters.length === 0) {
     return res.status(200).send({ message: 'Nenhum personagem cadastrado!' });
   }
-  res.send(characters);
+  res.send({characters});
 };
 
 export const findById = async (req, res) => {
