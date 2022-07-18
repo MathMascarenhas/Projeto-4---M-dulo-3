@@ -2,6 +2,7 @@ import Characters from './Characters.model.js';
 import {
   allCharacters,
   characterById,
+  findSearch,
   createNewCharacter,
   characterUpdate,
   removeCharacter,
@@ -20,6 +21,15 @@ export const findById = async (req, res) => {
   const chosenCharacter = await characterById(idParam);
   res.send(chosenCharacter);
 };
+
+export const searchCharacter = async (req,res) => {
+  const {name} = req.query;
+  const results = await findSearch(name);
+  if (results.length === 0){
+    return res.status(200).send({ message: 'Nenhum personagem encontrado a partir da pesquisa!'});
+  } 
+  res.send(results);
+}
 
 export const createCharacter = async (req, res) => {
   const character = req.body;
