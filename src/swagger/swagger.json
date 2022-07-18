@@ -19,7 +19,7 @@
       }
     ],
     "paths": {
-      "/users/": {
+      "/users/create": {
         "post": {
           "summary": "Cria um novo usuário",
           "description": "Rota responsável por criar um usuário.",
@@ -64,7 +64,9 @@
               }
             }
           }
-        },
+        }
+      },
+      "/users/": {  
         "get": {
           "summary": "Exibe todos os usuários",
           "description": "Rota responsável por exibir todos os usuários no banco",
@@ -154,7 +156,9 @@
               }
             }
           }
-        },
+        }
+      },
+      "/characters/create": {
         "post": {
             "summary": "Cria um novo Personagem",
             "description": "Rota responsável por adicionar um novo personagem ao banco",
@@ -233,7 +237,7 @@
           }
         }
       },
-      "/characters/{id}": {
+      "/characters/find/{id}": {
         "get": {
           "summary": "Encontra personagem por ID",
           "description": "Rota responsável por encontrar personagem por sua ID",
@@ -259,7 +263,9 @@
               "description": "Personagem encontrado"
             }
           }
-        },
+        }
+      },
+      "/characters/update/{id}": {
         "put": {
           "summary": "Atualizar personagem",
           "description": "Rota responsável por atualizar nome ou imagem de um personagem",
@@ -288,7 +294,9 @@
               "description": "Personagem atualizado com sucesso"
             }
           }
-        },
+        }
+      },
+      "/characters/delete/{id}": {
         "delete": {
           "summary": "Deletar um personagem",
           "description": "Rota responsável por Deletar um personagem",

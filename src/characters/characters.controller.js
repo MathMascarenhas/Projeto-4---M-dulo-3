@@ -19,10 +19,11 @@ export const findAll = async (req, res) => {
     offset = 0;
   }
   const characters = await allCharacters(offset, limit);
-  if (characters.length === 0) {
+  const total = characters.length
+  if (total === 0) {
     return res.status(200).send({ message: 'Nenhum personagem cadastrado!' });
   }
-  res.send({ characters });
+  res.send({ results: characters, total });
 };
 
 export const findById = async (req, res) => {
@@ -39,7 +40,7 @@ export const searchCharacter = async (req, res) => {
       .status(404)
       .send({ message: 'Nenhum personagem encontrado a partir da pesquisa!' });
   }
-  res.send(results);
+  res.send({ results: results});
 };
 
 export const createCharacter = async (req, res) => {

@@ -12,10 +12,10 @@ import { validId, validCreate, validUpdate } from './characters.middleware.js';
 import authorize from '../auth/auth.middleware.js';
 
 charactersRoute.get('/', authorize, findAll);
-charactersRoute.get('/:id', authorize, validId, findById);
+charactersRoute.get('/find/:id', authorize, validId, findById);
 charactersRoute.get('/search', authorize, searchCharacter);
 charactersRoute.post('/create', authorize, validCreate, createCharacter);
-charactersRoute.put('/:id', authorize, validId, validUpdate, updateCharacter);
-charactersRoute.delete('/:id', authorize, validId, deleteCharacter);
+charactersRoute.put('/update/:id', authorize, validId, validUpdate, updateCharacter);
+charactersRoute.delete('/delete/:id', authorize, validId, deleteCharacter);
 
 export default charactersRoute;
