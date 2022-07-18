@@ -1,5 +1,5 @@
 import express from 'express';
-const routerCharacters = express.Router();
+const charactersRoute = express.Router();
 import {
   findAll,
   findById,
@@ -8,14 +8,14 @@ import {
   updateCharacter,
   deleteCharacter,
 } from './characters.controller.js';
-import { validId, validCreate, validUpdate } from './characters.middleware.js'
-import authorize from '../auth/auth.middleware.js'
+import { validId, validCreate, validUpdate } from './characters.middleware.js';
+import authorize from '../auth/auth.middleware.js';
 
-routerCharacters.get('/characters/', authorize, findAll);
-routerCharacters.get('/characters/find/:id', authorize, validId, findById);
-routerCharacters.get('/characters/search', authorize, searchCharacter);
-routerCharacters.post('/characters/create', authorize, validCreate, createCharacter);
-routerCharacters.put('/characters/update/:id', authorize, validId, validUpdate, updateCharacter);
-routerCharacters.delete('/characters/delete/:id', authorize, validId, deleteCharacter);
+charactersRoute.get('/', authorize, findAll);
+charactersRoute.get('/:id', authorize, validId, findById);
+charactersRoute.get('/search', authorize, searchCharacter);
+charactersRoute.post('/create', authorize, validCreate, createCharacter);
+charactersRoute.put('/:id', authorize, validId, validUpdate, updateCharacter);
+charactersRoute.delete('/:id', authorize, validId, deleteCharacter);
 
-export default routerCharacters;
+export default charactersRoute;

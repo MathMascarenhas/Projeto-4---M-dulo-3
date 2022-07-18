@@ -9,20 +9,20 @@ import {
 } from './characters.service.js';
 
 export const findAll = async (req, res) => {
-  let {limit, offset} = req.query;
+  let { limit, offset } = req.query;
   limit = Number(limit);
   offset = Number(offset);
-  if(!limit){
+  if (!limit) {
     limit = 8;
   }
-  if(!offset){
+  if (!offset) {
     offset = 0;
   }
   const characters = await allCharacters(offset, limit);
   if (characters.length === 0) {
     return res.status(200).send({ message: 'Nenhum personagem cadastrado!' });
   }
-  res.send({characters});
+  res.send({ characters });
 };
 
 export const findById = async (req, res) => {
@@ -31,14 +31,16 @@ export const findById = async (req, res) => {
   res.send(chosenCharacter);
 };
 
-export const searchCharacter = async (req,res) => {
-  const {name} = req.query;
+export const searchCharacter = async (req, res) => {
+  const { name } = req.query;
   const results = await findSearch(name);
-  if (results.length === 0){
-    return res.status(200).send({ message: 'Nenhum personagem encontrado a partir da pesquisa!'});
-  } 
+  if (results.length === 0) {
+    return res
+      .status(404)
+      .send({ message: 'Nenhum personagem encontrado a partir da pesquisa!' });
+  }
   res.send(results);
-}
+};
 
 export const createCharacter = async (req, res) => {
   const character = req.body;
