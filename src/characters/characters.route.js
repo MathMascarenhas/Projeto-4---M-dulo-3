@@ -7,12 +7,13 @@ import {
   updateCharacter,
   deleteCharacter,
 } from './characters.controller.js';
-import { validId, validCreate } from './characters.middleware.js'
+import { validId, validCreate, validUpdate } from './characters.middleware.js'
+import authorize from '../auth/auth.middleware.js'
 
-routerCharacters.get('/characters', findAll);
-routerCharacters.get('/characters/find/:id', validId, findById);
-routerCharacters.post('/characters/create', validCreate, createCharacter);
-routerCharacters.put('/characters/update/:id', validId, updateCharacter);
-routerCharacters.delete('/characters/delete/:id', validId, deleteCharacter);
+routerCharacters.get('/characters', authorize, findAll);
+routerCharacters.get('/characters/find/:id', authorize, validId, findById);
+routerCharacters.post('/characters/create', authorize, validCreate, createCharacter);
+routerCharacters.put('/characters/update/:id', authorize, validId, validUpdate, updateCharacter);
+routerCharacters.delete('/characters/delete/:id', authorize, validId, deleteCharacter);
 
 export default routerCharacters;

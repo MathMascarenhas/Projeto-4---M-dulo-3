@@ -5,6 +5,7 @@ import cors from 'cors';
 import connectToDatabase from './database/db.js';
 import routerCharacters from './characters/characters.route.js'
 import routerUser from './users/user.route.js';
+import authRoute from './auth/auth.route.js'
 
 connectToDatabase();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/', routerCharacters);
 app.use('/', routerUser);
+app.use('/auth', authRoute);
 
 app.listen(port, () =>
   console.log(`Server running on http://localhost:${port}`),

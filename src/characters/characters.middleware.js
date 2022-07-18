@@ -22,3 +22,21 @@ export const validCreate = async (req, res, next) => {
     }
     next();
 }
+
+export const validUpdate = async (req, res, next) => {
+    const { name, imageUrl } = req.body;
+    const idParam = req.params.id;
+    if (!name || !imageUrl) {
+      return res
+        .status(400)
+        .send({ message: 'Por favor preencher todos os campos!' });
+    }
+    const unupdated = await Characters.findById(idParam);
+    if (
+      name === unupdated.name &&
+      imageUrl === unupdated.imageUrl
+    ) {
+      return res.status(400).send({ message: 'Por favor altere um dos campos' });
+    }
+    next();
+  };
