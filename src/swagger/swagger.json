@@ -1,0 +1,349 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API Rick and Morty",
+      "description": "API de CRUD dos personagens de Rick and Morty mediante criação e login de usuário",
+      "contact": {
+        "email": "mathmasca@gmail.com.br"
+      },
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "",
+        "description": "URL do Deploy"
+      },
+      {
+        "url": "http://localhost:3001",
+        "description": "URL local"
+      }
+    ],
+    "paths": {
+      "/users/": {
+        "post": {
+          "summary": "Cria um novo usuário",
+          "description": "Rota responsável por criar um usuário.",
+          "tags": ["Users"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "User": {
+                    "value": {
+                      "name": "João",
+                      "username": "jotap",
+                      "email": "joaogomes@gmail.com",
+                      "password": "12345",
+                      "photo": "https://rickandmortyapi.com/api/location/1"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "400": {
+              "description": "Alguns campos estão faltando ou usuário já existe"
+            },
+            "500": {
+              "description": "Erro ao criar o usuário!"
+            },
+            "201": {
+              "description": "Created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "summary": "Exibe todos os usuários",
+          "description": "Rota responsável por exibir todos os usuários no banco",
+          "tags": ["Users"],
+          "responses": {
+            "200": {
+              "description": "OK ou Não existem usuários",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/auth/login": {
+        "post": {
+          "summary": "Login na API",
+          "description": "Rota responsável por fazer o login de um usuário cadastrado",
+          "tags": ["Auth"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "#ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "User": {
+                    "value": {
+                      "email": "joaogomes@gmail.com",
+                      "password": "12345"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "400": {
+              "description": "Informações de login inválidas!"
+            },
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/characters/": {
+        "get": {
+          "summary": "Retorna todos os personagens",
+          "description": "Rota responsável por retornar todos os personagens",
+          "tags": ["Characters"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "offset",
+              "type": "string"
+            },
+            {
+              "in": "query",
+              "name": "limit",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "401": {
+              "description": "O token é inválido ou não foi informado!"
+            },
+            "200": {
+              "description": "OK ou Não existem perssonagens no banco",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Characters"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+            "summary": "Cria um novo Personagem",
+            "description": "Rota responsável por adicionar um novo personagem ao banco",
+            "tags": ["Characters"],
+            "security": [{ "bearerAuth": [] }],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "#ref": "#/components/schemas/Characters"
+                  },
+                  "examples": {
+                    "Character": {
+                      "value": {
+                        "name": "Rick Sanchez",
+                        "imageUrl": "https://rickandmortyapi.com/api/location/1"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "401": {
+                "description": "O token é inválido ou não foi informado!"
+              },
+              "400": {
+                "description": "Campos faltando ou personagem já está cadastrado"
+              },
+              "201": {
+                "description": "Created",
+                "content": {
+                  "application/json": {
+                    "type": "object",
+                    "#ref": "#/components/schemas/Characters"
+                  }
+                }
+              }
+            }
+          }
+      },
+      "/characters/search": {
+        "get": {
+          "summary": "Buscar personagens",
+          "description": "Rota responsável por buscar os personagens que correspondem a mensagem enviada via query",
+          "tags": ["Characters"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "name",
+              "type": "string",
+              "required": true
+            }
+          ],
+          "responses": {
+            "401": {
+              "description": "O token é inválido ou não foi informado!"
+            },
+            "404": {
+              "description": "Nenhum personagem corresponde a pesquisa realizada!"
+            },
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Characters"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/characters/{id}": {
+        "get": {
+          "summary": "Encontra personagem por ID",
+          "description": "Rota responsável por encontrar personagem por sua ID",
+          "tags": ["Characters"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Id do personagem a ser encontrado",
+              "required": true
+            }
+          ],
+          "responses": {
+            "401": {
+              "description": "O token é inválido ou não foi informado!"
+            },
+            "404": {
+              "description": "Id inválido"
+            },
+            "200": {
+              "description": "Personagem encontrado"
+            }
+          }
+        },
+        "put": {
+          "summary": "Atualizar personagem",
+          "description": "Rota responsável por atualizar nome ou imagem de um personagem",
+          "tags": ["Characters"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Id do personagem a ser atualizado",
+              "required": true
+            }
+          ],
+          "responses": {
+            "401": {
+              "description": "O token é inválido ou não foi informado!"
+            },
+            "400": {
+              "description": "Campos faltando ou nenhuma alteração realizada nos campos"
+            },
+            "404": {
+              "description": "Id inválido"
+            },
+            "200": {
+              "description": "Personagem atualizado com sucesso"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Deletar um personagem",
+          "description": "Rota responsável por Deletar um personagem",
+          "tags": ["Characters"],
+          "security": [{ "bearerAuth": [] }],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "type": "string",
+              "description": "Id do personagem a ser deletado",
+              "required": true
+            }
+          ],
+          "responses": {
+            "401": {
+              "description": "O token é inválido ou não foi informado!"
+            },
+            "404": {
+              "description": "Id inválido"
+            },
+            "200": {
+              "description": "Personagem deletado com sucesso!"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      },
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "username": { "type": "string" },
+            "email": { "type": "string" },
+            "password": { "type": "string" },
+            "photo": { "type": "string" }
+          }
+        },
+        "Characters": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "imageUrl": { "type": "string" }
+          }
+        }
+      }
+    }
+}
+
