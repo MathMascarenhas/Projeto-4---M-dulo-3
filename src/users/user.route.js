@@ -2,7 +2,7 @@ import express from 'express';
 const userRoute = express.Router();
 import { findAllUsers, createUser } from './user.controller.js';
 
-userRoute.get('/create', findAllUsers);
-userRoute.post('/', createUser);
+userRoute.get('/', findAllUsers);
+userRoute.post('/create', createUser);
 
 export default userRoute;
