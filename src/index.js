@@ -21,5 +21,5 @@ app.use('/auth', authRoute);
 app.use('/', swaggetRoute);
 
 app.listen(port, () =>
-  console.log(`Server running on http://localhost:${port}`),
+  console.log(`Server running on port: ${port}`),
 );
