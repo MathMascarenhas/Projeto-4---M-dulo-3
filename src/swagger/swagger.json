@@ -280,6 +280,23 @@
               "required": true
             }
           ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "#ref": "#/components/schemas/Characters"
+                },
+                "examples": {
+                  "Character": {
+                    "value": {
+                      "name": "Rick Sanchez",
+                      "imageUrl": "https://rickandmortyapi.com/api/location/1"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "responses": {
             "401": {
               "description": "O token é inválido ou não foi informado!"
