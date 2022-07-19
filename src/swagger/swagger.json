@@ -10,7 +10,7 @@
     },
     "servers": [
       {
-        "url": "",
+        "url": "https://api-rick--and--morty.herokuapp.com/",
         "description": "URL do Deploy"
       },
       {
