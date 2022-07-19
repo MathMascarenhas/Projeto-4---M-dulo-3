@@ -2,7 +2,7 @@
 
 Um projeto teste de backend que tem por objetivo praticar as 4 operações do CRUD com base nos personagens de Rick and Morty mediada por criação e login de usuário
 
-# Link do Deploy de acesso ao Swagger
+# Link de acesso ao Swagger
 [https://api-rick--and--morty.herokuapp.com/api-docs](https://api-rick--and--morty.herokuapp.com/api-docs)
 
 ## Começando
