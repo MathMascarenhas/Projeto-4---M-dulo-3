@@ -28,11 +28,6 @@ Exemplo: PS C:\Users\Matheus\OneDrive\Documentos\Blue\Módulo 3\Projeto 03\Proje
 
 Agora você deve digitar em seu terminal: npm run dev (isso irá startar seu servidor para execução do projeto)
 
-```
-Abra o link que o terminal gerou.
-
-Exemplo: Servidor rodando em http://localhost:3001
-```
 ## Desenvolvimento
 
 Foi desenvolvido um CRUD básico com os dados guardardos em nuvem por meio do MongoDB Atlas.
